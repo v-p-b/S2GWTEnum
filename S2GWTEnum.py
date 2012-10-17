@@ -1,4 +1,4 @@
-#!/usr/bin/env pytohn
+#!/usr/bin/env python
 #
 # Enumerating GWT RPC calls from obfuscated cache HTML files.
 # Might output some gibberish, but hopefully you will get the most important parts of the RPC interface.
