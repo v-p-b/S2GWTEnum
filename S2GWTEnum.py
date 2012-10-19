@@ -51,12 +51,7 @@ for f in functions_raw:
         function_name=string_defs[function_name]
     functions[function_name]={}
     param_callers=re.findall("[a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,[a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,([a-zA-Z0-9$_]+)\)\)",f)
-    functions[function_name]['params']=[]
-    for p in param_callers:
-        try:
-            functions[function_name]['params'].append(string_defs[p])
-        except KeyError:
-            pass
+    functions[function_name]['params']=[string_defs[p] for p in param_callers if p in string_defs]
 
 # Output
 for fname,f in functions.iteritems():
