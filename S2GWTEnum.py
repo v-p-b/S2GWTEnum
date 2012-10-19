@@ -39,10 +39,8 @@ for d in string_def_re.findall(html):
 
 # Gathering caller functions
 function_def_re=re.compile("function [a-zA-Z0-9_$]+\([a-zA-Z0-9,$_]+\){var [a-zA-Z0-9$_,]+;[a-zA-Z0-9$_]+=new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,'?[a-zA-Z0-9$_]+'?\);try.*}")
-functions_raw=[]
+functions_raw=function_def_re.findall(html)
 functions={}
-for f in function_def_re.findall(html):
-    functions_raw.append(f)
 
 # Parsing function infromation
 for f in functions_raw:
