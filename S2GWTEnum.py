@@ -45,7 +45,7 @@ functions={}
 # Parsing function infromation
 for f in functions_raw:
     function_name=re.search("new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,('?[a-zA-Z0-9$_]+'?)\)",f).group(1)
-    if function_name[0]=="'":
+    if function_name.startswith("'"):
         function_name=function_name[1:len(function_name)-1]
     else:
         function_name=string_defs[function_name]
