@@ -41,7 +41,7 @@ function_def_re=re.compile("function [a-zA-Z0-9_$]+\([a-zA-Z0-9,$_]+\){var [a-zA
 functions_raw=function_def_re.findall(html)
 functions={}
 
-# Parsing function infromation
+# Parsing function information
 for f in functions_raw:
     function_name=re.search("new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,('?[a-zA-Z0-9$_]+'?)\)",f).group(1)
     if function_name.startswith("'"):
