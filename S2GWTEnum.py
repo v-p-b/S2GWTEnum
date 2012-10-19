@@ -33,9 +33,8 @@ string_def_re=re.compile("[a-zA-Z$_]+='[^']*'")
 string_defs={}
 
 for d in string_def_re.findall(html):
-    parts=d.split('=')
-    val=parts[1]
-    string_defs[parts[0]]=val[1:len(val)-1]
+    variable, contents = d.split('=', 1)
+    string_defs[variable] = contents[1:-1]
 
 # Gathering caller functions
 function_def_re=re.compile("function [a-zA-Z0-9_$]+\([a-zA-Z0-9,$_]+\){var [a-zA-Z0-9$_,]+;[a-zA-Z0-9$_]+=new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,'?[a-zA-Z0-9$_]+'?\);try.*}")
