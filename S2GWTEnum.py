@@ -60,4 +60,4 @@ for f in functions_raw:
 
 # Output
 for fname,f in functions.iteritems():
-    print "%s(%s)" % (fname,','.join(list(f['params'])))
+    print "%s(%s)" % (fname,','.join(f['params']))
