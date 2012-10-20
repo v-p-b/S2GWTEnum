@@ -33,33 +33,25 @@ string_def_re=re.compile("[a-zA-Z$_]+='[^']*'")
 string_defs={}
 
 for d in string_def_re.findall(html):
-    parts=d.split('=')
-    val=parts[1]
-    string_defs[parts[0]]=val[1:len(val)-1]
+    variable, contents = d.split('=', 1)
+    string_defs[variable] = contents[1:-1]
 
 # Gathering caller functions
 function_def_re=re.compile("function [a-zA-Z0-9_$]+\([a-zA-Z0-9,$_]+\){var [a-zA-Z0-9$_,]+;[a-zA-Z0-9$_]+=new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,'?[a-zA-Z0-9$_]+'?\);try.*}")
-functions_raw=[]
+functions_raw=function_def_re.findall(html)
 functions={}
-for f in function_def_re.findall(html):
-    functions_raw.append(f)
 
-# Parsing function infromation
+# Parsing function information
 for f in functions_raw:
     function_name=re.search("new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,('?[a-zA-Z0-9$_]+'?)\)",f).group(1)
-    if function_name[0]=="'":
-        function_name=function_name[1:len(function_name)-1]
+    if function_name.startswith("'"):
+        function_name=function_name[1:-1]
     else:
         function_name=string_defs[function_name]
     functions[function_name]={}
     param_callers=re.findall("[a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,[a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,([a-zA-Z0-9$_]+)\)\)",f)
-    functions[function_name]['params']=[]
-    for p in param_callers:
-        try:
-            functions[function_name]['params'].append(string_defs[p])
-        except KeyError:
-            pass
+    functions[function_name]['params']=[string_defs[p] for p in param_callers if p in string_defs]
 
 # Output
 for fname,f in functions.iteritems():
-    print "%s(%s)" % (fname,','.join(list(f['params'])))
+    print "%s(%s)" % (fname,','.join(f['params']))
