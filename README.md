@@ -20,6 +20,13 @@ Many thanks to Gotham Digital Science for their great publications about GWT:
 *   http://www.gdssecurity.com/l/t.php
 *   https://www.owasp.org/images/7/77/Attacking_Google_Web_Toolkit.ppt
 
+Known issues / TODO
+===================
+
+*   Scripts are sometimes splitted into multiple HTML files, we should be able to handle these situations
+*   Sripathi Krishnan's method should be evaluated to make the script more reliable: https://code.google.com/p/degwt/wiki/HowDeGWTWorks
+*   Documentating how this script actually works...
+
 License
 =======
 
