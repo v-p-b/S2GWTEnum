@@ -22,10 +22,10 @@ So we first create a dictionary for the variable-string pairs defined by simple 
 ```javascript
 function bnb(b, c, d) {
     var a, e, f, g; // The number of methods indicates the number of paramaters but we don't really need this
-    f = new d5(b, 'methodName'); // here's the method name - maybe we should resolv it from a string variable
-    try { // this try block is a good identifier for these caller functions
+    f = new d5(b, 'methodName'); // here's the method name - maybe we should resolve it from a string variable
+    try { // this try block is a good identifier of these caller functions
         g = c5(f, 1);
-        u4(g, s4(g, vUb)); // here's one parameter, with the type defined in the vUb string
+        u4(g, s4(g, vUb)); // here's one parameter with the type defined in the vUb string
         v4(g, c);
         b5(f, d, (x5(), t5))
     } catch (a) {
