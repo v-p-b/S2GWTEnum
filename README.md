@@ -12,6 +12,35 @@ Usage
 
 > python S2GWTEnum.py XXXXXXXXXXX.cache.html
 
+How does it work?
+=================
+
+The script was constructed by debugging the GWT RPC calls of an application. I found that most of the method and parameter type names of the RPC interface are represented as simple string constants or variables. I could look for known method names in the obfuscated source, and found that the function that constructs the calls have a quite unique structure that I could represent as a regular expression. 
+
+So we first create a dictionary for the variable-string pairs defined by simple assignment in the code, than look for the caller functions and parse them:
+
+```javascript
+function bnb(b, c, d) {
+    var a, e, f, g; // The number of methods indicates the number of paramaters but we don't really need this
+    f = new d5(b, 'methodName'); // here's the method name - maybe we should resolv it from a string variable
+    try { // this try block is a good identifier for these caller functions
+        g = c5(f, 1);
+        u4(g, s4(g, vUb)); // here's one parameter, with the type defined in the vUb string
+        v4(g, c);
+        b5(f, d, (x5(), t5))
+    } catch (a) {
+        a = jY(a);
+        if (zK(a, 106)) {
+            e = a;
+            h9();
+            Dzb(lUb + e.g, kUb, null)
+        } else
+            throw a
+    }
+}
+```
+
+
 Thanks
 ======
 
@@ -25,7 +54,7 @@ Known issues / TODO
 
 *   Scripts are sometimes splitted into multiple HTML files, we should be able to handle these situations
 *   Sripathi Krishnan's method should be evaluated to make the script more reliable: https://code.google.com/p/degwt/wiki/HowDeGWTWorks
-*   Documentating how this script actually works...
+*   We always need more tests
 
 License
 =======
