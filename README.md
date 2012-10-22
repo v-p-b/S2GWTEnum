@@ -5,7 +5,7 @@ Enumerating GWT RPC calls from obfuscated cache HTML files.
 
 Might output some gibberish, but hopefully you will get the most important parts of the RPC interface.
 
-"Works-on-my-single-target" version, needs heavy testing.
+"Works-on-my-single-target-and-whirled.com" version, still needs heavy testing.
 
 Usage
 =====
@@ -22,7 +22,7 @@ So we first create a dictionary for the variable-string pairs defined by simple 
 ```javascript
 function bnb(b, c, d) {
     var a, e, f, g; // The number of methods indicates the number of paramaters but we don't really need this
-    f = new d5(b, 'methodName'); // here's the method name - maybe we should resolve it from a string variable
+    f = new d5(b, 'methodName'); // here's the method name - sometimes we have to resolve it from a string variable
     try { // this try block is a good identifier of these caller functions
         g = c5(f, 1);
         u4(g, s4(g, vUb)); // here's one parameter with the type defined in the vUb string
