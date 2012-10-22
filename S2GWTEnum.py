@@ -25,6 +25,7 @@
 
 import re
 import sys
+from pprint import pprint
 
 html=open(sys.argv[1],"r").read()
 
@@ -37,13 +38,13 @@ for d in string_def_re.findall(html):
     string_defs[variable] = contents[1:-1]
 
 # Gathering caller functions
-function_def_re=re.compile("function [a-zA-Z0-9_$]+\([a-zA-Z0-9,$_]+\){var [a-zA-Z0-9$_,]+;[a-zA-Z0-9$_]+=new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,'?[a-zA-Z0-9$_]+'?\);try.*}")
+function_def_re=re.compile("(function [a-zA-Z0-9_$]+\([a-zA-Z0-9,$_]+\){var [a-zA-Z0-9$_,]+;[a-zA-Z0-9$_]+=new [a-zA-Z0-9$_]+\(([a-zA-Z0-9$_]+,)+'?[a-zA-Z0-9$_]+'?\);try.*})")
 functions_raw=function_def_re.findall(html)
 functions={}
 
 # Parsing function information
-for f in functions_raw:
-    function_name=re.search("new [a-zA-Z0-9$_]+\([a-zA-Z0-9$_]+,('?[a-zA-Z0-9$_]+'?)\)",f).group(1)
+for f,junk in functions_raw:
+    function_name=re.search("new [a-zA-Z0-9$_]+\(([a-zA-Z0-9$_]+,)+('?[a-zA-Z0-9$_]+'?)\)",f).group(2)
     if function_name.startswith("'"):
         function_name=function_name[1:-1]
     else:
