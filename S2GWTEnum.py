@@ -27,7 +27,11 @@ import re
 import sys
 from pprint import pprint
 
-html=open(sys.argv[1],"r").read()
+try:
+	html=open(sys.argv[1],"r").read()
+except IndexError:
+	print >>sys.stderr, 'Usage: {0} <file.html>'.format(sys.argv[0])
+	sys.exit(1)
 
 # Gathering string definitions
 string_def_re=re.compile("[a-zA-Z$_]+='[^']*'")
